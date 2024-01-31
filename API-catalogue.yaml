@@ -1,8 +1,8 @@
-- name: PLAY-1 Catalogue installation
-  hosts: catalogue
-  become: yes
+---
+- name: Install Node.js 18
+  hosts: your_target_host
   tasks:
-  - name: PLAY-1 TASK-1 nodejs enable to 18 version
-    ansible.builtin.yum:
-      name: nodejs>=18
-      state: present
+    - name: Install Node.js using npm
+      npm:
+        name: "node@18"
+        global: yes
