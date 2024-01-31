@@ -7,4 +7,11 @@
 
   - name: PLAY-1 TASK-2 enable nodejs:18
     command: dnf module enable nodejs:18 -y
+
+  - name: PLAY-1 TASK-2 nodejs:18 installation
+    ansible.builtin.package:
+      name: nodejs
+      state: present
+
+
       
