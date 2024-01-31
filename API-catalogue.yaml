@@ -65,7 +65,7 @@
     register: load_output
     
   - name: PLAY-1 TASK-14 Data load if not exists
-    ansible.builtin.command: mongo --host MONGODB-SERVER-IPADDRESS < /app/schema/catalogue.js
+    ansible.builtin.command: mongo --host mongodb.hellodns.xyz < /app/schema/catalogue.js
     when: load_output.stdout == 0
 
   - name: PLAY-1 TASK-15 start and enable catalogue
