@@ -6,9 +6,13 @@
     ansible.builtin.command: mongo --host mongodb.hellodns.xyz --quiet --eval 'db = db.getSiblingDB("catalogue"); db.products.count()'
     register: load_output
     
+  #- name: PLAY-1 TASK-14 Data load if not exists
+  #  ansible.builtin.debug:
+  #   msg: "output is: {{load_output}}"
+
   - name: PLAY-1 TASK-14 Data load if not exists
-    ansible.builtin.debug:
-      msg: "output is: {{load_output}}"
+    ansible.builtin.command: mongo --host mongodb.daws76s.online < /app/schema/catalogue.js
+    when: load_output.stdout == 0
 
 
 
