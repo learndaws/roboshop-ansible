@@ -11,7 +11,7 @@
   #   msg: "output is: {{load_output}}"
 
   - name: PLAY-1 TASK-14 Data load if not exists
-    ansible.builtin.command: mongo --host mongodb.daws76s.online < /app/schema/catalogue.js
+    ansible.builtin.command: mongo --host mongodb.hellodns.xyz < /app/schema/catalogue.js
     when: load_output.stdout == "0"
 
 
