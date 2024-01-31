@@ -50,6 +50,24 @@
       enabled: yes
       state: started
 
+  - name: PLAY-1 TASK-11 Mongodb repo creation
+    ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+
+  - name: PLAY-1 TASK-12 Mongodb installation
+    ansible.builtin.package:
+      name: mongodb-org-shell
+      state: present
+
+  - name: PLAY-1 TASK-13 Data Load
+    ansible.builtin.command: mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
+      register: load_output
+    
+  - name: PLAY-1 TASK-14 load_output message print
+    ansible.builtin.debug:
+      msg: "Printing the message: {{load_output}}"
+
 
 
 
