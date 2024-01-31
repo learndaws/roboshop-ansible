@@ -3,10 +3,9 @@
   become: yes
   tasks:
   - name: PLAY-1 TASK-1 Install the nginx rpm from a remote repo
-    ansible.builtin.yum_repository:
-      name: redis repo
-      description: redis YUM repo
-      baseurl: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+    ansible.builtin.yum:
+      name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+      state: present
 
   - name: PLAY-1 TASK-2 Enable Redis 6.2 from package streams
     ansible.builtin.command: dnf module enable redis:remi-6.2 -y
