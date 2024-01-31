@@ -38,6 +38,20 @@
       name: npm
       path: /app
 
+  - name: PLAY-1 TASK-9 setting systemd catalogue service
+    ansible.builtin.copy:
+      src: catalogue.service
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: PLAY-1 TASK-10 DAEMON RELOAD
+    ansible.builtin.systemd_service:
+      daemon_reload: true
+      name: catalogue
+      enabled: yes
+      state: present
+
+
+
 
 
       
