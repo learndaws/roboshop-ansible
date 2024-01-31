@@ -61,7 +61,7 @@
       state: present
 
   - name: PLAY-1 TASK-13 Data Load
-    ansible.builtin.command: mongo --host MONGODB-SERVER-IPADDRESS </app/schema/catalogue.js
+    ansible.builtin.command: mongo --host mongodb.hellodns.xyz </app/schema/catalogue.js
       register: load_output
     
   - name: PLAY-1 TASK-14 load_output message print
