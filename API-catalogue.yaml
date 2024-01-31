@@ -43,7 +43,7 @@
       src: catalogue.service
       dest: /etc/systemd/system/catalogue.service
 
-  - name: PLAY-1 TASK-10 DAEMON RELOAD
+  - name: PLAY-1 TASK-10 DAEMON RELOAD and service restart and enable
     ansible.builtin.systemd_service:
       daemon_reload: true
       name: catalogue
