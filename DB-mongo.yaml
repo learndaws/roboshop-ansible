@@ -4,7 +4,7 @@
   tasks:
   - name: PLAY-1 TASK-1 Mongodb repo creation
     ansible.builtin.copy:
-      src: inventory.ini
+      src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 
   - name: PLAY-1 TASK-2 Mongodb installation
