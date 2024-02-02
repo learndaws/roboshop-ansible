@@ -27,9 +27,9 @@
 
   - name: PLAY-1 TASK-5 Extract the frontend content.
     ansible.builtin.unarchive:
-    src: /tmp/web.zip
-    dest: /usr/share/nginx/html
-    remote_src: yes
+      src: /tmp/web.zip
+      dest: /usr/share/nginx/html
+      remote_src: yes
 
   - name: PLAY-1 TASK-6 Create roboshop.conf and add content
     ansible.builtin.copy:
