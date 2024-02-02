@@ -21,6 +21,7 @@
 
   - name: PLAY-1 TASK-5 username and password
     ansible.builtin.command: rabbitmqctl add_user roboshop roboshop123
+    ignore_errors: true
 
   - name: PLAY-1 TASK-6 Permissions
     ansible.builtin.command: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
