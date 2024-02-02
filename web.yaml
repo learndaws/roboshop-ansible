@@ -33,7 +33,7 @@
 
   - name: PLAY-1 TASK-6 Create roboshop.conf and add content
     ansible.builtin.copy:
-      src: web.conf
+      src: roboshop.conf
       dest: /etc/nginx/default.d/roboshop.conf
 
   - name: PLAY-1 TASK-7 Restart Nginx Service to load the changes of the configuration.
