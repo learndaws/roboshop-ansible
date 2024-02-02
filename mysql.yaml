@@ -5,9 +5,7 @@
     password: RoboShop@1
   tasks:
   - name: Disabling default mysql version
-    ansible.builtin.dnf:
-      name: mysql
-      state: absent
+    ansible.builtin.command: dnf module disable mysql -y
 
   - name: Setup the MySQL5.7 repo file
     ansible.builtin.copy:
