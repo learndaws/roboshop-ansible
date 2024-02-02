@@ -1,0 +1,29 @@
+- name: Mysql Installation
+  hosts: mysql
+  become: yes
+  vars:
+    password: RoboShop@1
+  tasks:
+  - name: Disabling default mysql version
+    ansible.builtin.dnf:
+      name: mysql
+      state: absent
+
+  - name: Setup the MySQL5.7 repo file
+    ansible.builtin.copy:
+      src: mysql.repo
+      dest: /etc/yum.repos.d/mysql.repo
+
+  - name: Install MySQL Server
+    ansible.builtin.dnf:
+      name: mysql-community-server
+      state: present
+
+  - name: Enable and Start MySQL Service
+    ansible.builtin.systemd:
+      name: mysqld
+      enabled: yes
+      state: started
+
+  - name: Password Setup
+    ansible.builtin.command: mysql_secure_installation --set-root-pass {{password}}
