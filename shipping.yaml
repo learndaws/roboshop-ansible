@@ -1,0 +1,85 @@
+- name: Shipping Installation
+  hosts: shipping
+  become: yes
+  vars: 
+    password: RoboShop@1
+  tasks:
+  - name: PLAY-1 TASK-1 Maven Installation
+    ansible.builtin.dnf:
+      name: maven
+      state: present
+
+  - name: PLAY-1 TASK-2 username creation
+    ansible.builtin.user:
+      name: roboshop
+
+  - name: PLAY-1 TASK-3 directory creation
+    ansible.builtin.file:
+      path: /app
+      state: absent
+
+  - name: PLAY-1 TASK-4 directory creation
+    ansible.builtin.file:
+      path: /app
+      state: directory
+
+  - name: PLAY-1 TASK-5 Download the application code
+    ansible.builtin.get_url:
+      url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
+      dest: /tmp/shipping.zip
+
+  - name: PLAY-1 TASK-6 unzip
+    ansible.builtin.unarchive:
+      src: /tmp/shipping.zip
+      dest: /app
+      remote_src: yes
+
+  - name: PLAY-1 TASK-7 Lets download the dependencies & build the application
+    ansible.builtin.command: mvn clean package
+    args:
+      chdir: /app
+
+  - name: PLAY-1 TASK-8 Lets download the dependencies & build the application
+    ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+    args:
+      chdir: /app
+
+  - name: PLAY-1 TASK-9 copy file
+    ansible.builtin.copy:
+      src: shipping.service
+      dest: /etc/systemd/system/shipping.service
+
+  - name: PLAY-1 TASK-10 daemon reload
+    ansible.builtin.systemd_Service:
+      daemon_reload: true
+
+  - name: PLAY-1 TASK-11 Enable and Start Service
+    ansible.builtin.systemd:
+      name: shipping
+      enabled: yes
+      state: started
+
+  - name: PLAY-1 TASK-12 install mysql
+    ansible.builtin.dnf:
+      name: mysql
+      state: present
+
+  - name: PLAY-1 TASK-13 check cities schema exists or not
+    ansible.builtin.command:  mysql -h mysql.hellodns.xyz -uroot -p{{password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+    register: schema
+
+  - name: PLAY-1 TASK-14 print output
+    ansible.builtin.debug:
+      msg: "schema output: {{schema}}"
+
+  - name: PLAY-1 TASK-15 load cities data
+    ansible.builtin.shell: "mysql -h mysql.hellodns.xyz -uroot -p{{password}}  < /app/schema/shipping.sql"
+    when: schema.stdout != "1"
+
+  - name: PLAY-1 TASK-16 start and enable shipping
+    ansible.builtin.service:
+      name: shipping
+      state: restarted
+      enabled: yes
+
+  
