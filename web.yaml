@@ -37,6 +37,6 @@
       dest: /etc/nginx/default.d/roboshop.conf
 
   - name: PLAY-1 TASK-7 Restart Nginx Service to load the changes of the configuration.
-    ansible.builtin.systemde:
+    ansible.builtin.systemd:
       name: nginx
       state: restarted
