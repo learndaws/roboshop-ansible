@@ -38,5 +38,5 @@
 
   - name: PLAY-1 TASK-7 Restart Nginx Service to load the changes of the configuration.
     ansible.builtin.systemd_service:
-      name: nginx.service
+      name: nginx
       state: restarted
