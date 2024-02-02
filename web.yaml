@@ -9,7 +9,7 @@
   
   - name: PLAY-1 TASK-2 Start & Enable Nginx service
     ansible.builtin.service:
-      name: nginx
+      name: httpd
       state: started
       enabled: yes
 
@@ -38,5 +38,5 @@
 
   - name: PLAY-1 TASK-7 Restart Nginx Service to load the changes of the configuration.
     ansible.builtin.service:
-      name: nginx
+      name: httpd
       state: restarted
