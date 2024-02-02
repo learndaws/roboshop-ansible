@@ -61,7 +61,7 @@
       state: present
 
   - name: PLAY-1 TASK-13 Data load existance check
-    ansible.builtin.command: mongo --host mongodb.hellodns.xyz --quiet --eval 'db = db.getSiblingDB("users"); db.products.count()'
+    ansible.builtin.command: mongo --host mongodb.hellodns.xyz --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
     register: load_output
     
   - name: PLAY-1 TASK-14 Data load if not exists
