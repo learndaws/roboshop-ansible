@@ -1,40 +1,42 @@
-- name: install web component
+- name: Web Server Installation
   hosts: web
   become: yes
   tasks:
-  - name: install nginx
+  - name: PLAY-1 TASK-1 nginx installation
     ansible.builtin.dnf:
-      name: nginx 
+      name: nginx
       state: present
   
-  - name: remove html directory
-    ansible.builtin.file:
-      path: /usr/share/nginx/html
-      state: absent
+  - name: PLAY-1 TASK-2 Start & Enable Nginx service
+    ansible.builtin.service:
+      name: httpd
+      state: started
+      enabled: yes
 
-  - name: create html directory
+  - name: PLAY-1 TASK-3 Remove the default content that web server is serving.
     ansible.builtin.file:
-      path: /usr/share/nginx/html
+      path: /usr/share/nginx/html/
       state: directory
+      force: yes
+      recurse: yes 
 
-  - name: Download web app
+  - name: PLAY-1 TASK-4 Download the frontend content
     ansible.builtin.get_url:
       url: https://roboshop-builds.s3.amazonaws.com/web.zip
-      dest: /tmp
+      dest: /tmp/web.zip
 
-  - name: Extract application
+  - name: PLAY-1 TASK-5 Extract the frontend content.
     ansible.builtin.unarchive:
       src: /tmp/web.zip
       dest: /usr/share/nginx/html
       remote_src: yes
 
-  - name: copy roboshop configuration
+  - name: PLAY-1 TASK-6 Create roboshop.conf and add content
     ansible.builtin.copy:
       src: roboshop.conf
       dest: /etc/nginx/default.d/roboshop.conf
 
-  - name: start and enable nginx
+  - name: PLAY-1 TASK-7 Restart Nginx Service to load the changes of the configuration.
     ansible.builtin.service:
-      name: nginx
+      name: httpd
       state: restarted
-      enabled: yes
